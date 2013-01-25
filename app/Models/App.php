@@ -7,10 +7,17 @@ class App extends Prefab{
         F3::get('db_user'),
         F3::get('db_pw')));
   }
+  
   function locationDetails(){
     //return F3::get('dB')->exec('select * from location limit 1');
     $location=new DB\SQL\Mapper(F3::get('dB'),'location');
     return $location->load();
+    
+  }
+  
+  function locationPictures($idLocation){
+    $pictures=new DB\SQL\Mapper(F3::get('dB'),'pictures');
+    return $pictures->find(array('idLocation=?',$idLocation));
     
   }
   
@@ -19,4 +26,10 @@ class App extends Prefab{
 
   }
 }
+
+
+
+
+
+
 ?>
