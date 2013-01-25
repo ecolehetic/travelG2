@@ -6,10 +6,16 @@ class App_controller{
  }
  
  function home(){
+    $id=F3::get('PARAMS.id');
     #récupération de la destination courante
     $App=new App();
-    $location=$App->locationDetails();
+    $location=$App->locationDetails($id);
+    if(!$location){
+      F3::error('404');
+      return;
+    }
     F3::set('location',$location);
+
     
     $pictures=$App->locationPictures($location->id);
 
@@ -24,6 +30,7 @@ class App_controller{
   function doc(){
     echo Views::instance()->render('userref.html');
   }
+  
  
  function __destruct(){
 
