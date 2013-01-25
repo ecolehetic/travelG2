@@ -11,6 +11,7 @@ class App_controller{
     $location=$App->locationDetails();
     F3::set('location',$location);
     
+    $pictures=$App->locationPictures($location->id);
     
     
     //F3::set('location',App::instance()->locationDetails(););
