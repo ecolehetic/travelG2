@@ -18,15 +18,22 @@ class Test_controller{
       array('firstname'=>'pumir','lastname'=>'francois','email'=>'pumir@hetic.net','email_check'=>''),
       array('firstname'=>'','lastname'=>'francois','email'=>'pumir@hetic.net','email_check'=>'pumir.net')
     );
+    $test=new \Test;
     foreach ($units as $unit) {
       F3::mock('POST /travel',$unit);
-      if(F3::get('errorMsg')){
-        echo F3::stringify($unit).' => '.F3::stringify(F3::get('errorMsg')).'<br/>';
-      }
-      else{
-        echo F3::stringify($unit).' => passed<br/>';
-      }
+      $test->expect(
+        !F3::get('errorMsg'),
+        'POST : '.
+        $unit['firstname'].' | '.
+        $unit['lastname'].' | '.
+        $unit['email'].' | '.
+        $unit['email_check'].' => '.
+        F3::stringify(F3::get('errorMsg'))
+        );
     }
+    F3::set('results',$test->results());
+    echo Views::instance()->render('test.html');
+    
   }
   
   
