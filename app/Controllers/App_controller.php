@@ -23,6 +23,18 @@ class App_controller{
     F3::set('pictures',$json);
     //F3::set('location',App::instance()->locationDetails(););
     
+    
+    $next=$App->getNext($location->id);
+    $prev=$App->getPrev($location->id);
+    
+   
+    $linkNext=$next?$next[0]['id'].'-'.$next[0]['title']:'';
+    $linkPrev=$prev?$prev[0]['id'].'-'.$prev[0]['title']:'';
+    
+    F3::set('next',$linkNext);
+    F3::set('prev',$linkPrev);
+    
+    
     echo Views::instance()->render('travelr.html');
  }
  
