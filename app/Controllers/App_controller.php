@@ -15,6 +15,8 @@ class App_controller{
       return;
     }
     F3::set('location',$location);
+    
+    F3::set('coords',Views::instance()->toJson($location,array('lat'=>'lat','lng'=>'lng')));
 
     
     $pictures=$App->locationPictures($location->id);
