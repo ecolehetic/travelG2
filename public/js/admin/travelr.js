@@ -1,5 +1,5 @@
 var map;
-var image='/P2015/f3/public/css/img/marker.png';
+var image='/travelr-g2/public/css/img/marker.png';
 
 $(function(){
 	drawMap();

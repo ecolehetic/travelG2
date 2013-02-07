@@ -17,7 +17,16 @@ class Admin_controller{
         echo Views::instance()->render('admin/travel.html');
       break;
       case 'POST':
-      
+        $check=array('title'=>'required','content'=>'required','lat'=>'required');
+        $error=Datas::instance()->check(F3::get('POST'),$check);
+        if($error){
+          F3::set('errorMsg',$error);
+          echo Views::instance()->render('admin/travel.html');
+          return;
+        }
+        Admin::instance()->create();
+        F3::reroute('/admin/dashboard');
+        
       break;
     }
   }
