@@ -16,15 +16,15 @@ class App_controller{
     }
     F3::set('location',$location);
     
-    F3::set('coords',Views::instance()->toJson($location,array('lat'=>'lat','lng'=>'lng')));
+    if(F3::get('AJAX')){
+      $ajax['coords']['lat']=$location->lat;
+      $ajax['coords']['lng']=$location->lng;
+      $pictures=App::instance()->locationPictures($location->id);
+      $ajax['pictures']=array_map(function($item){return array('image'=>$item->src);},$pictures);
+      echo json_encode($ajax);
+      return;
+    }
 
-    
-    $pictures=$App->locationPictures($location->id);
-
-    $json=Views::instance()->toJson($pictures,array('image'=>'src'));
-    F3::set('pictures',$json);
-    //F3::set('location',App::instance()->locationDetails(););
-    
     
     $next=$App->getNext($location->id);
     $prev=$App->getPrev($location->id);

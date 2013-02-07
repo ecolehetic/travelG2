@@ -1,11 +1,11 @@
 $(function(){
-	if(datas){
-		slide(datas);
-	}
-	if(coords){
-		drawMap(coords);
-		$('.main .map, .map .close').bind('click',toggleMap);
-	}
+	$.getJSON(location.href)
+	.success(function(response){
+		slide(response.pictures);
+		drawMap(response.coords); 
+	})
+	$('.main .map, .map .close').bind('click',toggleMap);
+	
 });
 
 function slide(data) {
