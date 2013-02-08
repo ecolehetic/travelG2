@@ -7,8 +7,18 @@ class Admin_controller{
   }
   
   function dashboard(){
+    
     F3::set('location',Admin::instance()->getAllLocations());
     echo Views::instance()->render('admin/travels.html');
+    
+    /*$model=new Admin();
+    $location=$model->getAllLocation();
+    F3::set('location',$location);
+    $view=new Views();
+    echo $view->render('admin/travels.html');*/
+    
+    
+    
   }
   
   function create(){
@@ -32,16 +42,22 @@ class Admin_controller{
   }
   
   function edit(){
-    switch(F3::get('VERB')){
-      case 'GET':
-      
-      break;
-      case 'POST':
-      
-      break;
-    }
+     switch(F3::get('VERB')){
+       case 'GET':
+         $id=F3::get('PARAMS.id');
+         $location=Admin::instance()->getLocation($id);
+         F3::set('location',$location);
+         $pictures=Admin::instance()->getPictures($location->id);
+         F3::set('pictures',$pictures);
+         echo Views::instance()->render('admin/travel.html');
+       break;
+       case 'POST':
+         $id=F3::get('PARAMS.id');
+         Admin::instance()->update($id);
+         F3::reroute('/admin/dashboard');
+       break;
+     }
   }
-  
   
 }
 ?>
