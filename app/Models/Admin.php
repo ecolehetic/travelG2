@@ -18,9 +18,9 @@ class Admin extends Prefab{
     
     $image=Web::instance()->receive();
     if($image){
-      $this->_resize($image,1024,768);
+      $this->_resize($image[0],1024,768);
       $picture=new DB\SQL\Mapper(F3::get('dB'),'pictures');
-      $picture->src='min_'.$image;
+      $picture->src='min_'.$image[0];
       $picture->idLocation=$location->id;
       $picture->save();
     }
